@@ -1,13 +1,28 @@
 import { useSession, signIn, signOut } from "next-auth/react"
+import react, {useState} from "react"
 
 export default function Component() {
   const { data: session } = useSession()
+  const [open, toggleOpen] = useState(false);
+  
   if (session) {
     return (
       <div>
-        {session.user.email} <br/>
-        <button onClick={() => signOut()}>Sign out</button>
+        <div className={`flex flex-row items-center p-2 hover:bg-slate-100 rounded-md ${open? "bg-slate-100" : "bg-transparent"}`} onClick={()=>toggleOpen(!open)}>
+          {session.user.email}
+          <div className="w-10 h-10 rounded-full bg-blue-200 ml-2"></div>
+         
+        </div>
+        {open && <div className="w-screen h-screen absolute left-0 top-0" onClick={()=>toggleOpen(!open)}></div>}
+        <div className={`absolute ${open? " translate-y-0 opacity-100": "opacity-0 pointer-events-none -translate-y-5"} transition-all bg-slate-100 p-2 duration-500`}>
+          <div flex flex-col>
+            <div className="p-2">Profile</div>
+            <button onClick={() => signOut()} className="p-2">Sign out</button>
+          </div>
+        </div>
+        
       </div>
+      
     )
   }
   return (
