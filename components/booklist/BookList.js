@@ -2,6 +2,7 @@ import react, {useState} from 'react'
 import Header from './Header'
 import BookCard from './BookCard'
 import Popup from './Popup'
+import BookInfo from './BookInfo'
 
 export default function BookList() {
     const [open, toggleOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function BookList() {
     return (
         <div className='px-28 pt-10 flex flex-col space-y-8'>
             
-            <Popup open = {open} toggle = {toggle}></Popup>
+            <Popup open = {open} toggle = {toggle} Child = {<BookInfo toggle={toggle} book = {bookinfo}/>}></Popup>
             
             <Header></Header>
             <div className='text-3xl font-bold text-gray-700 pt-8'>
