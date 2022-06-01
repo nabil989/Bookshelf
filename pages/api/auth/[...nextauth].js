@@ -1,36 +1,49 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from "./lib/mongodb.js"
+import connectDB from "./lib/connect.js";
+import Users from "../../../models/userModel"
+import bcrypt from "bcrypt"
+connectDB(process.env.MONGODB_URI)
 export default NextAuth({
     // Configure one or more authentication providers
+    adapter: MongoDBAdapter(clientPromise),
     providers: [
         CredentialsProvider({
             name:"Credentials",
             credentials: {
-                username: {label: "Email", type: "text", placeholder: "a@a.com"},
+                username: {label: "Email", type: "text", placeholder: "test@test.com"},
                 password: {label: "Password", type: "password"}
             },
-            async authorize(credentials){
-                console.log(credentials.username);
-                if(credentials.username === "hello"){
-                    const user = {name: "hello", email:"hello@hello.com"}
-                    return user;
+            async authorize(credentials, req){
+                console.log(credentials)
+                const email = credentials.username
+                const password = credentials.password
+                const user = await Users.findOne({email:email})
+                if(!user || !password){
+                    return null
                 }
-                return null;
-               
+                const isMatch = await bcrypt.compare(password, user.password)
+                if(!isMatch){
+                    return null
+                }
+                return user
             }   
             
-        })
+        }),
         // ...add more providers here
     ],
     session: {
-        jwt:true,    
+        jwt:true,
+        strategy: 'jwt'
+
     },
     jwt:{
         secret: "hello",
         encryption: true,
     },
-    pages:{
-        
-    }
+
+
 })
+
