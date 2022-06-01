@@ -1,0 +1,27 @@
+{
+    "users" : {
+        "name" : "String",
+        "email" : "String",
+        "Password" : "String",
+        "image" : "b64 String",
+        "bookLists" : []
+    },
+
+    "booklist" : {
+        "users" : [],
+        "Books" : {  
+            "book" : {
+                "title": "",
+                "author": "",
+                "Url": "",
+                "Image" : "",
+                "Pages": "int",
+                "addedBy": "",
+                "Users" : {
+                    "ID" : "",
+                    "page" : "int"
+                }
+            }
+        }
+    }
+}
