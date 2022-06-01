@@ -5,7 +5,7 @@ export default function Header() {
         <div className='text-5xl font-bold text-gray-700'>
             Bookshelf
         </div>
-        <Profile></Profile>
+        <Profile/>
     </div>
   )
 }

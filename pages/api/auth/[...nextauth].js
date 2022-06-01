@@ -17,49 +17,33 @@ export default NextAuth({
                 password: {label: "Password", type: "password"}
             },
             async authorize(credentials, req){
+                console.log(credentials)
                 const email = credentials.username
                 const password = credentials.password
-                const user = await Users.findOne({email})
+                const user = await Users.findOne({email:email})
                 if(!user || !password){
-                    
-                    // return res.status(400).json({msg:"An account with the specified email does not exist."})
                     return null
-
                 }
                 const isMatch = await bcrypt.compare(password, user.password)
                 if(!isMatch){
-                    // return res.status(400).json({msg:"The password is incorrect."})
                     return null
                 }
                 return user
-                // return {name:'test', email:email}
-
             }   
             
         }),
         // ...add more providers here
     ],
     session: {
-        jwt:true,    
+        jwt:true,
+        strategy: 'jwt'
+
     },
     jwt:{
         secret: "hello",
         encryption: true,
     },
-    pages:{
-        
-    },
-    database:process.env.MONGODB_URI
+
 
 })
 
-const signInUser = async({password, user}) => {
-    if(!user.password){
-        return res.status(400).json({msg:"Please enter a password"})
-    }
-    const isMatch = await bcrypt.compare(password, user)
-    if(!isMatch){
-        return res.status(400).json({msg:"The password is incorrect."})
-    }
-    return user
-}
