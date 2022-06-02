@@ -3,8 +3,9 @@ import Header from '../shared/Header'
 import BookCard from '../shared/BookCard'
 import Popup from '../shared/Popup'
 import BookInfo from '../shared/BookInfo'
-
+import {useSession} from "next-auth/react"
 export default function BookList() {
+    const { data: session } = useSession()
     const [open, toggleOpen] = useState(false);
     const bookinfo = {
         title: "Thinking Fast and Slow",
@@ -18,12 +19,13 @@ export default function BookList() {
         console.log("hello");
         toggleOpen(!open);
     }
+    if (session) {
     return (
         <div className='px-28 pt-10 flex flex-col space-y-8'>
             
             <Popup open = {open} toggle = {toggle} Child = {<BookInfo toggle={toggle} book = {bookinfo}/>}></Popup>
             
-            <Header title = {"Bookshelf"}></Header>
+            <Header title = {`Welcome ${session.user.name}`}></Header>
             <div className='text-3xl font-bold text-gray-700 pt-8'>
                 Continue Reading
             </div>
@@ -35,5 +37,9 @@ export default function BookList() {
             </div>
             
         </div>
+    )
+    }
+    return (
+        <div>Not Logged In</div>
     )
 }

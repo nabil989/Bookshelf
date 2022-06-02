@@ -13,8 +13,8 @@ const userSchema = new mongoose.Schema({
     image: {
         type: String,
         default:'a'
-    }
-
+    },
+    bookLists : []
 })
 module.exports = mongoose.models.User || mongoose.model('User', userSchema)
 // module.exports =
