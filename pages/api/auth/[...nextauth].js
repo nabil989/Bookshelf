@@ -28,6 +28,7 @@ export default NextAuth({
                 if(!isMatch) {
                     return null
                 }
+                console.log(user);
                 return user
             }   
             
