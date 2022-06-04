@@ -15,5 +15,4 @@ export default async function handler (req, res) {
     await dbConnect(process.env.MONGODB_URI)
     const list = await BookList.create({name:name, users:[session.user.id]})
     return res.status(200).json({msg:"Added new booklist "})
-
 }
