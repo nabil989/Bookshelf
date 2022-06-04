@@ -5,7 +5,5 @@ const userSchema = new mongoose.Schema({
         default: 'List'
     },
     users:[],
-
-
 })
 module.exports = mongoose.models.BookList || mongoose.model('BookList', userSchema)
