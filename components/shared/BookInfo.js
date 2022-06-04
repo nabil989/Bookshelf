@@ -1,4 +1,3 @@
-//fetch additional book data from google books api
 export default function BookInfo({toggle, book}){
     return (
         <div className="flex flex-row">
@@ -14,7 +13,7 @@ export default function BookInfo({toggle, book}){
                 <div className="py-4">
                     In the highly anticipated Thinking, Fast and Slow, Kahneman takes us on a groundbreaking tour of the mind and explains the two systems that drive the way we think. System 1 is fast, intuitive, and emotional; System 2 is slower, more deliberative, and more logical. Kahneman exposes the extraordinary capabilities—and also the faults and biases—of fast thinking, and reveals...
                 </div>
-                <button className="bg-blue-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-blue-400 transition-all duration-500">Continue from pg {book.page}</button>
+                <button className=" bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white">Continue from pg {book.page}</button>
                 <div className="text-gray-900 my-4">
                     Added by {book.added}
                 </div>

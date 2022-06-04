@@ -42,7 +42,10 @@ export default function AddBook() {
             <input type={"text"} id="search" placeholder="Search" className="w-auto p-2 border-2 border-gray-200 rounded-md shadow-sm" onKeyDown = {handleKeyDown}></input>
             <div>
                 {loading ?
-                    message === "Loading" ? <div>Loading</div> : <div>{message}</div>
+                    message === "Loading" ? 
+                    <div className='text-center'>Loading...</div> 
+                    : 
+                    <div className='text-center p-2'>{message}</div>
                 : 
                     <div className='flex flex-row space-x-4'>
                         {book.volumeInfo.imageLinks ? 
@@ -78,7 +81,7 @@ export default function AddBook() {
                                 <input type={'number'} className='border-2 border-gray-200 ml-2 rounded-md'></input>
                             </div>
                             
-                            <button className='bg-blue-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-blue-400 transition-all duration-500 '>
+                            <button className = "bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white">
                                 Add Book</button>
                         </div>
                     </div>
