@@ -11,6 +11,5 @@ export default async function handler (email, password) {
     if(!isMatch) {
         return null
     }
-    console.log('1')
     return user
 }
