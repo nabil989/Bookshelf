@@ -2,11 +2,13 @@ import react, {useState} from 'react'
 import Header from '../shared/Header'
 import BookCard from '../shared/BookCard'
 import Popup from '../shared/Popup'
-
+import { useRouter } from 'next/router'
 import BookInfo from '../shared/BookInfo'
 import AddBook from './AddBook'
 import AddCard from '../shared/AddCard'
 export default function BookList() {
+    const router = useRouter()
+    const { pid } = router.query
     const [open, toggleOpen] = useState(false);
     const [popup, changePopup] = useState(0);
     const bookinfo = {
@@ -41,7 +43,7 @@ export default function BookList() {
             
             <Popup open = {open} toggle = {toggle} Child = {popupOptions[popup]}></Popup>
             
-            <Header title = {"Bookshelf"}></Header>
+            <Header title = {`Bookshelf ${pid}`}></Header>
             <div className='text-3xl font-bold text-gray-700 pt-8'>
                 Continue Reading
             </div>
