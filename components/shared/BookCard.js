@@ -11,7 +11,7 @@ export default function BookCard({type, Title, Author, Page, User, Users, onClic
                 <div className='text-gray-600'>
                     {Author}
                 </div>
-                <button className="bg-blue-200 rounded-sm text-gray-900">Continue from pg {Page}</button>
+                <button className=" bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white">Continue from pg {Page}</button>
             </div>
         </div>
     )
