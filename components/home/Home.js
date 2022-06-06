@@ -1,8 +1,6 @@
 import react, {useState, useEffect} from 'react'
 import Header from '../shared/Header'
-import BookCard from '../shared/BookCard'
 import Popup from '../shared/Popup'
-import BookInfo from '../shared/BookInfo'
 import AddCard from '../shared/AddCard'
 import CreateBookList from '../shared/CreateBookList'
 import { useSession} from "next-auth/react"

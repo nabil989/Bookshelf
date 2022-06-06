@@ -1,6 +1,8 @@
 import react, {useState} from 'react'
 import axios, { Axios } from 'axios'
-export default function AddBook() {
+import { useSession} from "next-auth/react"
+export default function AddBook({toggle, listId, update}) {
+    const { data: session } = useSession()
     const [book, setBook] = useState({});
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
@@ -29,6 +31,22 @@ export default function AddBook() {
         }
     }
     const post = () => {
+        let newbook = {};
+        newbook["title"] =  book.volumeInfo.title;
+        newbook["author"] = book.volumeInfo.authors ? book.volumeInfo.authors[0] : "No Author";
+        newbook["imageURL"] = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "none";
+        newbook["description"] = book.volumeInfo.description ? book.volumeInfo.description.slice(0,500) + ' ...' : "No Description";
+        newbook["pages"] = document.getElementById('pages').value;
+        newbook["link"] = document.getElementById('link').value;
+        newbook["users"] = [];
+        newbook["addedBy"] = session.user.name;
+
+        axios.post('../api/lists/books/addBook', {id: listId, book:newbook}).then(res => {
+            update();
+            toggle();
+            setLoading(true);
+            setBook({});
+        }).catch(err => console.log(err))
 
     }
     return (
@@ -74,14 +92,14 @@ export default function AddBook() {
                         <div className='flex flex-col py-2 space-y-4'>
                             <div className='flex flex-row'>
                                 <div>PDF Link: </div>
-                                <input type={'text'} className='border-2 border-gray-200 ml-2 rounded-md'></input>
+                                <input type={'text'} id = 'link' className='border-2 border-gray-200 ml-2 rounded-md'></input>
                             </div>
                             <div className='flex flex-row'>
                                 <div>Number of Pages: </div>
-                                <input type={'number'} className='border-2 border-gray-200 ml-2 rounded-md'></input>
+                                <input type={'number'} id = 'pages' className='border-2 border-gray-200 ml-2 rounded-md'></input>
                             </div>
                             
-                            <button className = "bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white">
+                            <button className = "bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white" onClick={post}>
                                 Add Book</button>
                         </div>
                     </div>
