@@ -4,6 +4,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'List'
     },
+    join: {
+        type: String,
+        required: true,
+    },
     users:[],
+    books:[],
 })
 module.exports = mongoose.models.BookList || mongoose.model('BookList', userSchema)

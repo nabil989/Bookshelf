@@ -1,5 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import react, {useState} from "react"
+import Link from 'next/link'
 
 export default function Component() {
   const { data: session } = useSession()
@@ -28,6 +29,11 @@ export default function Component() {
   return (
     <div>
       <button onClick={() => signIn()} className='p-2 bg-fuchsia-200 rounded-sm'>Sign in</button>
+      <Link href='/account/register'>
+        <a className='p-2 bg-fuchsia-200 rounded-sm'>Register</a>  
+      </Link>
+      {/* <button className='p-2 bg-fuchsia-200 rounded-sm'>Register</button> */}
+
     </div>
   )
 }

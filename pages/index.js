@@ -1,7 +1,7 @@
-import BookList from '../components/booklist/BookList'
+import Landing from '../components/home/Home'
 
 export default function Home() {
   return (
-    <div><BookList></BookList></div>
+    <div><Landing></Landing></div>
   )
 }

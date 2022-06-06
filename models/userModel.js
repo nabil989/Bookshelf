@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default:'a'
     },
-    bookLists : []
+    bookLists : [],
+    valid: {
+        type: Boolean,
+        default: false
+    }
 })
 module.exports = mongoose.models.User || mongoose.model('User', userSchema)
 // module.exports =
