@@ -7,6 +7,9 @@ export default async function handler (email, password) {
     if(!user || !password){
         return null
     }
+    if(!user.valid){
+        return null
+    }
     const isMatch = await bcrypt.compare(password, user.password)
     if(!isMatch) {
         return null
