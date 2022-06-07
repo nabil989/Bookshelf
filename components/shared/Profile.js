@@ -1,17 +1,21 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import react, {useState} from "react"
 import Link from 'next/link'
-
+import Image from 'next/image'
 export default function Component() {
   const { data: session } = useSession()
   const [open, toggleOpen] = useState(false);
-  
+  const getImage = () => {
+    const id = session.user.id
+    
+  }
   if (session) {
     return (
       <div>
         <div className={`flex flex-row items-center p-2 hover:bg-slate-100 rounded-md ${open? "bg-slate-100" : "bg-transparent"} transition-all duration-500`} onClick={()=>toggleOpen(!open)}>
           {session.user.email}
-          <div className="w-10 h-10 rounded-full bg-blue-200 ml-2"></div>
+          {session.user.image !== 'a' && <Image src={"data:image/png;base64,"+session.user.image} width='100' height='100'/>}
+
          
         </div>
         {open && <div className="w-screen h-screen absolute left-0 top-0" onClick={()=>toggleOpen(!open)}></div>}

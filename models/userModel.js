@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     image: {
-        type: String,
-        default:'a'
+        type: Buffer,
+        default:''
     },
     bookLists : [],
     valid: {

@@ -49,14 +49,17 @@ export default NextAuth({
     }, 
     callbacks: {
         session: async ({ session, token }) => {
-          if (session?.user) {
-            session.user.id = token.uid;
-          }
-          return session;
+            
+            if (session?.user) {
+                session.user.id = token.uid;
+                session.user.image = token.picture
+            }
+            return session;
         },
         jwt: async ({ user, token }) => {
           if (user) {
             token.uid = user.id;
+            token.picture = user.image
           }
           return token;
         },
