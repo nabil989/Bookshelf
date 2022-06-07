@@ -16,22 +16,10 @@ export default function SignIn({ csrfToken }) {
             </label>
 
             <button className='text-red' type="submit">
-                {/* <div className='bg-blue hover:bg-blue-dark  font-bold py-2 px-4 rounded'> */}
                 Sign In
-
-                {/* </div> */}
             </button>
-
-            
-            {/* <div className="flex items-center justify-between">
-                
-                <a className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="#">
-                    Forgot Password?
-                </a>
-            </div> */}
         </form>
     </div>
-    
   )
 }
 

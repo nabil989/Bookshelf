@@ -24,7 +24,7 @@ const Validate = () => {
     }, [router.isReady]);
     
     return (
-        <div className=''>
+        <div className='text-center text-4xl items-center'>
             <h1>You have been successfully verified and will be redirected to the login screen shortly.</h1>
         </div>
     );
