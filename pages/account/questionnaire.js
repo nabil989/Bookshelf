@@ -9,9 +9,9 @@ const Questionnaire = () => {
     const [message, changeMessage] = useState('')
     const saveImg = (e) => {
         // console.log(test)
+        console.log(e)
         changeImage(e.base64)
         console.log(img)
-        console.log(img.base64)
     }
     // const uploadImage = (e) => {
     //     console.log(e)
@@ -41,7 +41,7 @@ const Questionnaire = () => {
                 {message}
             </div>
             {/* <div className={img.length === 0 ? : 'hidden ' : }> */}
-            <Image src={img} width="500" height="500"/>
+            {img.length != 0 && <Image src={img} width="500" height="500"/>}
 
             {/* </div> */}
             {/* <input type='file' onChange={e => uploadImage(e)}/> */}
