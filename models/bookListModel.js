@@ -9,5 +9,6 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     users:[],
+    books:[],
 })
 module.exports = mongoose.models.BookList || mongoose.model('BookList', userSchema)
