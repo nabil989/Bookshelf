@@ -71,9 +71,9 @@ export default function BookList() {
             <div className='text-3xl font-bold text-gray-700 pt-8'>
                 Continue Reading
             </div>
-            <div className='flex flex-row space-x-20' >
+            <div className='flex flex-row flex-wrap' >
                 {bookListInfo.books && bookListInfo.books.map((book, id) => 
-                    <BookCard Title={book.title} Author = {book.author} key ={id} 
+                    <BookCard Title={book.title.slice(0,50)} Author = {book.author} key ={id} 
                     Page = {0} Added = {book.addedBy} Users = {book.users} image = {book.imageURL} onClick = {showBookinfo} link = {book.link}>
                     </BookCard>
                 )}
