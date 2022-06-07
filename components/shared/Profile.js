@@ -17,6 +17,9 @@ export default function Component() {
         {open && <div className="w-screen h-screen absolute left-0 top-0" onClick={()=>toggleOpen(!open)}></div>}
         <div className={`absolute ${open? " translate-y-5 opacity-100": "opacity-0 pointer-events-none -translate-y-5"} transition-all bg-slate-100 p-2 duration-500 w-1/12 rounded-md`}>
           <div flex flex-col>
+            <Link href={'/'}>
+              <div className="p-2 cursor-pointer roudned-md transition-all hover:bg-white ">Home</div>
+            </Link>
             <div className="p-2">Profile</div>
             <button onClick={() => signOut()} className="p-2">Sign out</button>
           </div>

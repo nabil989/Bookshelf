@@ -68,8 +68,9 @@ export default function BookList() {
             <Popup open = {open} toggle = {toggle} Child = {popupOptions[popup]}></Popup>
             
             <Header title = {`${bookListInfo.name}`}></Header>
+            <div className='bg-fuchsia-200 p-2 rounded-md'> {`Invite friends to join this list using code ${bookListInfo.join}`} </div>
             <div className='text-3xl font-bold text-gray-700 pt-8'>
-                Continue Reading
+                Books
             </div>
             <div className='flex flex-row flex-wrap' >
                 {bookListInfo.books && bookListInfo.books.map((book, id) => 
