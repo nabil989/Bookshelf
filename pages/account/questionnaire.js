@@ -16,10 +16,15 @@ const Questionnaire = () => {
     // }
     const updateUser = (e) => {
         e.preventDefault()
+        // console.log('tomato')
+        // console.log(img)
+        const fin = img.replace("data:image/jpeg;base64", "")
+
+        console.log(fin)
         axios.post('/api/users/update', {
             id:session.user.id,
             name: name,
-            image: img
+            image: fin
         }).then(function (response) {
             console.log(response);
         })
@@ -55,7 +60,7 @@ const Questionnaire = () => {
           console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
           blobToBase64(compressedFile).then(res => {
             // do what you wanna do
-            console.log(res); // res is base64 now
+            // console.log(res); // res is base64 now
             changeImage(res);
             });
         } catch (error) {
