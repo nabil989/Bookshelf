@@ -2,23 +2,13 @@ import axios from "axios"
 import { useSession, getSession, getCsrfToken } from 'next-auth/react'
 import Image from "next/image"
 import { useState } from 'react'
-import FileBase64 from 'react-file-base64';
-import connectDB from "../api/auth/lib/connect";
+import imageCompression from 'browser-image-compression';
 
 const Questionnaire = () => {
     const { data: session } = useSession()
     const [name, changeName] = useState('')
     const [img, changeImage] = useState('')
     const [message, changeMessage] = useState('')
-    const saveImg = (e) => {
-
-        changeImage(e.base64)
-        console.log(e.base64)
-        // const strImage = img.replace(/^data:image\/[a-z]+;base64,/, "");
-        // console.log(strImage)
-        // console.log(img)
-
-    }
     // const uploadImage = (e) => {
     //     console.log(e)
     //     const file = e.target.files[0]
@@ -37,6 +27,42 @@ const Questionnaire = () => {
             console.log(error);
         });
     }
+
+    const blobToBase64 = blob => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        return new Promise(resolve => {
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+        });
+      };
+
+    async function handleImageUpload(event) {
+
+        const imageFile = event.target.files[0];
+        console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+        console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+      
+        const options = {
+          maxSizeMB: 0.005,
+          maxWidthOrHeight: 80,
+          useWebWorker: true
+        }
+        try {
+          const compressedFile = await imageCompression(imageFile, options);
+          console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+          console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+          blobToBase64(compressedFile).then(res => {
+            // do what you wanna do
+            console.log(res); // res is base64 now
+            changeImage(res);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      
+      }
     return (
         <div className='flex flex-col space-y-4 items-center'>
             <h1 className='text-5xl'>Bookshelf</h1>
@@ -47,11 +73,9 @@ const Questionnaire = () => {
                 </label>
                 <label className='flex flex-col text-grey-darker text-sm font-bold mb-2'>
                     Picture
-                    <FileBase64 multiple={false} onDone={saveImg.bind(this)}/>
-
+                    <input type="file" accept="image/*" onChange={handleImageUpload.bind(this)}></input>
                 </label>
-                {img.length != 0 && <Image src={img} width="500" height="500"/>}
-
+                {img.length != 0 && <Image src={img} layout="fixed" width={100} height={100} className='rounded-full'/>}
                 <button onClick={updateUser} className='text-red' type="submit" >
                     <p className='text-red'>
                         Finish account registration
