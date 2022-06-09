@@ -42,8 +42,6 @@ export default function BookList() {
     }
     
     const popupOptions = [<CreateBookList toggle={toggle} update = {getBookLists}/>]
-
-    
     
     return (
         <div className='px-28 pt-10 flex flex-col space-y-8'>
@@ -54,7 +52,7 @@ export default function BookList() {
             <div className='text-3xl font-bold text-gray-700 pt-8'>
                 Your Booklists
             </div>
-            <div className='flex flex-row flex-wrap space-y-10 items-baseline' >
+            <div className='flex flex-row flex-wrap ' >
                 {booklists && Object.keys(booklists).map((i) => {
                     return <BookListCard text = {booklists[i].name} key = {i} list ={booklists[i]}></BookListCard>
                 })}
