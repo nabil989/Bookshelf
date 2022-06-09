@@ -9,6 +9,7 @@ const Questionnaire = () => {
     const [name, changeName] = useState('')
     const [img, changeImage] = useState('')
     const [message, changeMessage] = useState('')
+
     // const uploadImage = (e) => {
     //     console.log(e)
     //     const file = e.target.files[0]
@@ -16,11 +17,7 @@ const Questionnaire = () => {
     // }
     const updateUser = (e) => {
         e.preventDefault()
-        // console.log('tomato')
-        // console.log(img)
-        const fin = img.replace("data:image/jpeg;base64", "")
-
-        console.log(fin)
+        let fin = new Buffer(img, 'base64')
         axios.post('/api/users/update', {
             id:session.user.id,
             name: name,
@@ -60,7 +57,7 @@ const Questionnaire = () => {
           console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
           blobToBase64(compressedFile).then(res => {
             // do what you wanna do
-            // console.log(res); // res is base64 now
+            console.log(res); // res is base64 now
             changeImage(res);
             });
         } catch (error) {

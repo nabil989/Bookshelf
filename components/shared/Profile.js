@@ -15,8 +15,9 @@ export default function Component() {
     return (
       <div>
         <div className={`flex flex-row items-center p-2 hover:bg-slate-100 rounded-md ${open? "bg-slate-100" : "bg-transparent"} transition-all duration-500`} onClick={()=>toggleOpen(!open)}>
-          {session.user.email}
-          {/* {session.user.image !== 'a' && <Image src={"data:image/png;base64,"+session.user.image} width='50' height='50'/>} */}
+          <div className="mr-4">{session.user.email}</div>
+          
+        
           <ProfileIcon/>
          
         </div>
