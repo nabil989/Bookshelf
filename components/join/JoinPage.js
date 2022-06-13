@@ -5,6 +5,7 @@ import axios, { Axios } from 'axios'
 import Link from "next/link"
 import JoinMsg from "./JoinMsg"
 import { useSession} from "next-auth/react"
+import NotFound from "../shared/NotFound"
 
 export default function joinPage(){
     const { data: session } = useSession()
@@ -19,16 +20,20 @@ export default function joinPage(){
         console.log(code);
         setCode(code);
         axios.post('../api/lists/getInfoFromCode', {join:code}).then(res => {
-            if(res.data){
-                console.log(res.data.data);
-                setBookListInfo(res.data.data);
-                //check if user is already in booklist
+        
+            console.log(res);
+            setBookListInfo(res.data.data);
+            if(res.data.msg === "Already in List"){
+                router.push(`/booklist/${res.data.data._id}`)
             }
+            //check if user is already in booklist
+        
 
             setLoading(false);
             setTimeout(() => {setOpen(true);}, 50);
             
         }).catch(err => {
+           
             console.log(err)
             setLoading(false);
         }    
@@ -43,11 +48,6 @@ export default function joinPage(){
                 <Popup open={open} Child = {<JoinMsg bookList={bookListInfo}/>}></Popup>
             </div>
         :
-            <div className="h-screen flex flex-col items-center justify-center align-middle space-y-4 bg-gray-50">
-                <div className="text-xl text-gray-500">Error or Invalid Code</div>
-                <Link href={'/'}>
-                    <button className="text-gray-600 p-2 bg-fuchsia-200 rounded-xl">Return Home</button>
-                </Link>
-            </div>
+        <NotFound msg = {"Error or Invalid Code"}></NotFound>
     )
 }

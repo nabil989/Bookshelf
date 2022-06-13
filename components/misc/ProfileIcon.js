@@ -20,7 +20,6 @@ const ProfileIcon = () => {
             // const b64 = Buffer.from(rest.Body).toString('base64');
             console.log(response);
             changeSrc(Buffer.from(response.data.image).toString('base64'))
-            console.log(Buffer.from(response.data.image).toString('base64'));
             let text = 'data:image/jpeg;base64,' + Buffer.from(response.data.image).toString('base64').slice(20);
             console.log(text);
             setSrc(text);

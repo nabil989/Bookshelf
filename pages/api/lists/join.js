@@ -21,6 +21,9 @@ export default async function handler (req, res) {
     if(!list){
         return res.status(400).json({msg:"No booklist with join code"})
     }
+    if(list.users.includes(session.user.id)){
+        return res.status(400).json({msg:"Already in List"})
+    }
     list.users.push(session.user.id)
     await list.save();
     //add booklist to user booklists and user to booklist

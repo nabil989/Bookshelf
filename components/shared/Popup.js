@@ -1,7 +1,6 @@
-import BookInfo from "./BookInfo"
 export default function Popup({open, toggle, Child}){
     return (
-        <div className={`w-screen h-screen bg-gray-300/25 absolute left-0 top-0
+        <div className={`w-screen h-screen bg-gray-300/40 fixed left-0 top-0
             ${open ? " translate-y-0 opacity-100 pointer-events-auto" : "opacity-0 -translate-y-5 pointer-events-none"} 
             transition-all duration-700 z-10`} 
             >
