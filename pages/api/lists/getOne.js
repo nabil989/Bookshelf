@@ -14,11 +14,11 @@ export default async function handler (req, res) {
     if(!list){
         return res.status(400).json({msg:"No list with id found"});
     }
-    let ret = {};
+    let ret = [];
 
     for(let i = 0; i< list.users.length; i++){
         const user = await Users.findOne({_id: list.users[i]});
-        ret[i] = {name: user.name, image: user.image, id:user._id};
+        ret.push({name: user.name, image: user.image, id:user._id});
     }
     return res.status(200).json({msg:"success", data:{list}, users:{ret}});
 }

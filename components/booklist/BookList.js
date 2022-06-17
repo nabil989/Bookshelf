@@ -14,7 +14,7 @@ export default function BookList() {
     const [listId, setListId] = useState("")
     const [bookListInfo, setBookListInfo] = useState({})
     const [currentBook, setCurrentBook] = useState({});
-    const [users,setUsers] = useState({});
+    const [users,setUsers] = useState([]);
     const [loading,setLoading] = useState(true);
     
 
@@ -67,12 +67,17 @@ export default function BookList() {
         changePopup(2);
         toggle();
     }
+
+    const showUpdatePageFromPopup = (book) => {
+        setCurrentBook(book);
+        changePopup(2);
+    }
   
     
     const popupOptions = [
-                            <BookInfo toggle={toggle} book = {currentBook}/>, 
+                            <BookInfo toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users}/>, 
                             <AddBook toggle={toggle} listId = {listId} update = {update}/>,
-                            <UpdatePage toggle={toggle} book = {currentBook} id = {listId}/>
+                            <UpdatePage toggle={toggle} book = {currentBook} id = {listId} update = {update}/>
                         ]
 
     

@@ -1,10 +1,12 @@
 import { useState } from "react"
 import axios from "axios"
-export default function UpdatePage ({toggle, book, id}) {
+export default function UpdatePage ({toggle, book, id, update}) {
     const submit = () =>{
         const page = document.getElementById('page').value;
         axios.post('../api/lists/books/editPage', {bookIndex:book.index, id:id,page:page}).then(res => {
             console.log(res);
+            toggle();
+            update();
         }).catch(err => {
             console.log(err);
         })

@@ -18,6 +18,7 @@ export default async function handler (req, res) {
     if(!list){
         return res.status(400).json({msg:"Error no list found"});
     }
+
     let users = list.books[bookIndex].users;
     let index = -1;
     for(let i = 0; i< users.length; i++){
@@ -27,8 +28,8 @@ export default async function handler (req, res) {
         }
     }
     
-    if(index != -1){
-        list.books[bookIndex].users[i].page = page;
+    if(index !== -1){
+        list.books[bookIndex].users[index].page = page;
     }
     else{
         list.books[bookIndex].users.push({
@@ -37,6 +38,7 @@ export default async function handler (req, res) {
         })
     }
 
+    list.markModified('books');
     await list.save();
 
     return res.status(200).json({msg:"success", data:list})

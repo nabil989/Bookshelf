@@ -1,5 +1,4 @@
-import Link from "next/link"
-export default function BookCard({book, onClick, openBook, read}) {
+export default function BookCard({book, onClick, read}) {
     return(
         <div className="w-3/12 flex flex-row hover:shadow-md hover:scale-105 transition-all duration-500 hover:cursor-pointer mr-10 mb-10" onClick={onClick}>
             {book.imageURL !== "none" ? <img src={book.imageURL} className = "h-48 w-32 object-cover rounded-md shadow-md"/>
@@ -14,7 +13,7 @@ export default function BookCard({book, onClick, openBook, read}) {
                 <div className='text-gray-600'>
                     {book.author}
                 </div>
-                <a href={book.link} target="_blank" onClick = {openBook}>
+                <a href={book.link} target="_blank">
                     <button className=" bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white px-4"   
                      onClick={read}>Continue from pg {book.page}
                     </button>

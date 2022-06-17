@@ -7,8 +7,8 @@ export default function Header({title, users}) {
          <div className='text-5xl font-bold text-gray-700 mr-10'>
             {title} 
         </div>
-        {users && Object.keys(users).map((i) => {
-            return <UserIconSM key = {i} name = {users[i].name} image = {users[i].image}></UserIconSM>
+        {users && users.map((user, i) => {
+            return <UserIconSM key = {i} name = {user.name} image = {user.image}></UserIconSM>
         })}
       </div>
        
