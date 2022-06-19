@@ -9,14 +9,32 @@ import AddCard from '../shared/AddCard'
 import axios, { Axios } from 'axios'
 import NotFound from '../shared/NotFound'
 import UpdatePage from './UpdatePage'
+import { useSession} from "next-auth/react"
+
 export default function BookList() {
+    const { data: session } = useSession()
     const router = useRouter()
     const [listId, setListId] = useState("")
     const [bookListInfo, setBookListInfo] = useState({})
     const [currentBook, setCurrentBook] = useState({});
     const [users,setUsers] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [timer, setTimer] = useState(0);
+    const [intervalId, setIntervalId] = useState(0);
+
+    const toggleInterval = () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          setIntervalId(0);
+          setTimer(0);
+          return;
+        }
     
+        const newIntervalId = setInterval(() => {
+            setTimer(timer => timer + 1);
+        }, 1000);
+        setIntervalId(newIntervalId);
+      };
 
     const update = () => {
         axios.post('../api/lists/getOne', {id:listId}).then(res => {
@@ -44,7 +62,9 @@ export default function BookList() {
     const [popup, changePopup] = useState(0);
    
     const toggle = () => {
-        console.log("hello");
+        if(intervalId){
+            toggleInterval();
+        }
         toggleOpen(!open);
     }
 
@@ -60,25 +80,29 @@ export default function BookList() {
         toggle();
     }
 
+
     const showUpdatePage = (book, e, i) => {
         e.stopPropagation();
         book["index"] = i;
         setCurrentBook(book);
         changePopup(2);
         toggle();
+        toggleInterval();
     }
 
     const showUpdatePageFromPopup = (book) => {
         setCurrentBook(book);
         changePopup(2);
+        toggleInterval();
     }
   
     
-    const popupOptions = [
-                            <BookInfo toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users} open = {open}/>, 
-                            <AddBook toggle={toggle} listId = {listId} update = {update}/>,
-                            <UpdatePage toggle={toggle} book = {currentBook} id = {listId} update = {update}/>
-                        ]
+    const popupOptions = 
+    [
+        <BookInfo toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users} open = {open} id={session ? session.user.id : ""}/>, 
+        <AddBook toggle={toggle} listId = {listId} update = {update}/>,
+        <UpdatePage toggle={toggle} book = {currentBook} id = {listId} update = {update} timer={timer} toggleInterval = {toggleInterval}/>
+    ]
 
     
     
@@ -99,6 +123,7 @@ export default function BookList() {
                     <BookCard book={book} key ={id} 
                     onClick = {() => showBookinfo(book, id)}
                     read = {(e) => showUpdatePage(book, e, id)}
+                    page = {session ? book.users.find(x => x.id === session.user.id)?.page : ""}
                     >
                     </BookCard>
                 )}   

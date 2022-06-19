@@ -1,6 +1,6 @@
 import ReaderStatus from "../booklist/ReaderStatus"
 
-export default function BookInfo({toggle, book, read, users, open}){
+export default function BookInfo({toggle, book, read, users, open, id}){
     return (
         <div className="flex flex-row">
             {book.imageURL !== "none" ? 
@@ -20,12 +20,19 @@ export default function BookInfo({toggle, book, read, users, open}){
                 <div className="py-4">
                     {book.description}
                 </div>
-                <a href={book.link} target="_blank">
-                    <button className="bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white"
+                {id != "" && <a href={book.link} target="_blank">
+                    <button className="bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white px-2"
                     onClick={read}>
-                        Continue from pg {book.page}
+                        {book.users && book.users.find(x => x.id === id)?.page ? 
+                            parseInt(book.users.find(x => x.id === id)?.page) >= parseInt(book.pages) ? "Finished!":
+                        `Continue from pg ${book.users.find(x => x.id === id)?.page}` 
+                        
+                        : "Start reading"}
                     </button>
                 </a>
+                
+                }
+                
                 <div className="text-gray-900 my-4">
                     Added by {book.addedBy}
                 </div>

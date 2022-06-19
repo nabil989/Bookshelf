@@ -1,4 +1,4 @@
-export default function BookCard({book, onClick, read}) {
+export default function BookCard({book, onClick, read, page}) {
     return(
         <div className="w-3/12 flex flex-row hover:shadow-md hover:scale-105 transition-all duration-500 hover:cursor-pointer mr-10 mb-10" onClick={onClick}>
             {book.imageURL !== "none" ? <img src={book.imageURL} className = "h-48 w-32 object-cover rounded-md shadow-md"/>
@@ -15,7 +15,12 @@ export default function BookCard({book, onClick, read}) {
                 </div>
                 <a href={book.link} target="_blank">
                     <button className=" bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white px-4"   
-                     onClick={read}>Continue from pg {book.page}
+                     onClick={read}>
+                        {page ? 
+                            parseInt(page) >= parseInt(book.pages) ? "Finished!":
+                        `Continue from pg ${page}` 
+                        
+                        : "Start reading"}
                     </button>
                 </a>
             </div>

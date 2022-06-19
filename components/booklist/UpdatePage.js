@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import axios from "axios"
 
-export default function UpdatePage ({toggle, book, id, update}) {
+export default function UpdatePage ({toggle, book, id, update, timer, toggleInterval}) {
+    
     const submit = () =>{
         const page = document.getElementById('page').value;
         if(page > parseInt(book.pages)){
@@ -11,6 +12,7 @@ export default function UpdatePage ({toggle, book, id, update}) {
             console.log(res);
             toggle();
             update();
+            toggleInterval();
         }).catch(err => {
             console.log(err);
         })
@@ -21,10 +23,11 @@ export default function UpdatePage ({toggle, book, id, update}) {
                 Nice Reading!
             </div>
             <div>
-                Youve been reading for 
+                You have been reading for {Math.floor(timer/60)} minutes and {timer%60} seconds and stopped on page
+                <input type='number' id = 'page' className="p-2 rounded-md border-gray-200 border-2 ml-2"></input>
             </div>
-            <input type='number' id = 'page' className="p-2 rounded-md border-gray-200 border-2"></input>
-            <button onClick={submit}>submit</button>
+            
+            <button onClick={submit} className = 'p-2 bg-fuchsia-200 rounded-md'>submit</button>
         </div>
     )
 }

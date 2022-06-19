@@ -17,7 +17,7 @@ export default function ReaderStatus({users, book, open}) {
 
                                     </div>
                                     <div className=" h-10 flex flex-col justify-center ml-4 -translate-y-10">
-                                        {user.page >= book.pages ? 
+                                        {parseInt(user.page) >= parseInt(book.pages) ? 
                                         <div>Finished!</div>
                                         :
                                         <div>{user.page} / {book.pages}</div>
