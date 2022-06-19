@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from 'react'
+import { useSession, signIn, signOut } from "next-auth/react"
 const Register = () => {
     const [email, changeEmail] = useState('')
     const [password, changePassword] = useState('')
@@ -40,31 +41,33 @@ const Register = () => {
     }
     
     return (
-        <div className='flex flex-col space-y-4 items-center'>
-            <h1 className='text-5xl'>Bookshelf</h1>
-            <form className='flex flex-col space-y-4' method='post'>
-                <label className='block text-grey-darker text-sm font-bold mb-2'>
-                    Username
-                    <input onChange={e => changeEmail(e.target.value)} value={email} className='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker' name="username" type="text" />
+        <div className='flex flex-col space-y-6 items-center pt-32 text-gray-800'>
+            <h1 className='text-5xl font-bold'>Bookshelf</h1>
+            
+            <form className='flex flex-col space-y-6' method='post'>
+                <label className='block text-grey-darker text-sm font-bold'>
+                    Email
+                    <input onChange={e => changeEmail(e.target.value)} value={email} className='shadow-sm focus:outline-blue-400 focus:shadow-lg appearance-none border rounded w-full py-2 px-3' name="username" type="text" />
                 </label>
-                <label className='block text-grey-darker text-sm font-bold mb-2'>
+                <label className='block text-grey-darker text-sm font-bold'>
                     Password
-                    <input onChange={e => changePassword(e.target.value)} value={password} className='shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3' name="password" type="password" />
+                    <input onChange={e => changePassword(e.target.value)} value={password} className='shadow-sm focus:outline-blue-400 focus:shadow-lg appearance-none border rounded w-full py-2 px-3' name="password" type="password" />
                 </label>
-                <label className='block text-grey-darker text-sm font-bold mb-2'>
+                <label className='block text-grey-darker text-sm font-bold'>
                     Password Again
-                    <input onChange={e => changePasswordAgain(e.target.value)} value={passwordAgain} className='shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3' name="passwordAgain" type="password" />
+                    <input onChange={e => changePasswordAgain(e.target.value)} value={passwordAgain} className='shadow-sm focus:outline-blue-400 focus:shadow-lg appearance-none border rounded w-full py-2 px-3' name="passwordAgain" type="password" />
                 </label>
-                <button className='text-red' type="submit" onClick={registerUser}>
+                <button className='text-red bg-blue-300 rounded p-1' type="submit" onClick={registerUser}>
                     <p className='text-red'>
                         Register
-
                     </p>
                 </button>
+                <button onClick={() => signIn()} className=' text-blue-600 underline'>Have an account?</button>
             </form>
-            <div>
+            {message != '' && <div className={`${message === 'A verification email has been sent to your account.' ? 'bg-green-200' : 'bg-red-200'} rounded-sm p-2`}>
                 {message}
-            </div>
+            </div>}
+            
         </div>
     );
 }

@@ -75,7 +75,7 @@ export default function BookList() {
   
     
     const popupOptions = [
-                            <BookInfo toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users}/>, 
+                            <BookInfo toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users} open = {open}/>, 
                             <AddBook toggle={toggle} listId = {listId} update = {update}/>,
                             <UpdatePage toggle={toggle} book = {currentBook} id = {listId} update = {update}/>
                         ]

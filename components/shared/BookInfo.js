@@ -1,6 +1,6 @@
 import ReaderStatus from "../booklist/ReaderStatus"
 
-export default function BookInfo({toggle, book, read, users}){
+export default function BookInfo({toggle, book, read, users, open}){
     return (
         <div className="flex flex-row">
             {book.imageURL !== "none" ? 
@@ -29,7 +29,7 @@ export default function BookInfo({toggle, book, read, users}){
                 <div className="text-gray-900 my-4">
                     Added by {book.addedBy}
                 </div>
-                <ReaderStatus users={users} book = {book}></ReaderStatus>
+                <ReaderStatus users={users} book = {book} open = {open}></ReaderStatus>
             </div>
         </div>
     )
