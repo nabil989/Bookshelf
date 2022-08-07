@@ -23,7 +23,7 @@ export default function CreateBookList({toggle, update}) {
                 Booklist Name:
             </div>
             <input type={"text"} id = 'listname' className = "w-auto p-2 border-2 border-gray-400 rounded-md"></input>
-            <button className = "bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white" onClick={submit}>Create</button>
+            <button className = "bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600 transition-all duration-500 hover:text-white" onClick={submit}>Create</button>
         </div>
     )
 }

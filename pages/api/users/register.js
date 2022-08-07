@@ -30,8 +30,8 @@ const sendMail = (user) => {
         to: email,
         from: 'verifiedbookshelf@gmail.com', // Use the email address or domain you verified above
         subject: 'Verify your Account',
-        text: `Press here to verify your account. If this wasn't you please do not click the link and shoot us an email. Thanks!`,
-        html: `Press <a href="http://localhost:3000/account/verify/${id}">here</a> to verify your account.
+        text: `Press here or visit http://localhost:3000/account/verify/${id} to verify your account. If this wasn't you please do not click the link and shoot us an email. Thanks!`,
+        html: `Press <a href="http://localhost:3000/account/verify/${id}">here</a> or visit http://localhost:3000/account/verify/${id} to verify your account.
         If this wasn't you, please do not click the link and shoot us an email. Thanks!`
       };
       // <a href=http://localhost:3000/api/users/validate/${id}> here</a>

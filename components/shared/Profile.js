@@ -37,7 +37,7 @@ export default function Profile() {
     <div>
       <button onClick={() => signIn()} className='p-2 bg-fuchsia-200 rounded-md mr-2'>Sign in</button>
       <Link href='/account/register'>
-        <a className='p-2 bg-fuchsia-200 rounded-md'>Register</a>  
+        <button className='p-2 bg-fuchsia-200 rounded-md'>Register</button>  
       </Link>
       {/* <button className='p-2 bg-fuchsia-200 rounded-sm'>Register</button> */}
 

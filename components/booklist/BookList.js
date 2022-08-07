@@ -114,7 +114,12 @@ export default function BookList() {
             <Popup open = {open} toggle = {toggle} Child = {popupOptions[popup]}></Popup>
             
             <Header title = {`${bookListInfo.name}`} users = {users}></Header>
-            <div className='bg-fuchsia-200 p-2 rounded-md'> {`Invite friends to join this list using code ${bookListInfo.join}`} </div>
+            {session ? 
+                <div className='bg-fuchsia-200 p-2 rounded-md'> {`Invite friends to join this list using code ${bookListInfo.join}`} </div>
+                :
+                <div className='bg-fuchsia-200 p-2 rounded-md'> Sign in or sign up to join this booklist! </div>
+            }
+            
             <div className='text-3xl font-bold text-gray-700 pt-8'>
                 Books
             </div>
@@ -124,10 +129,13 @@ export default function BookList() {
                     onClick = {() => showBookinfo(book, id)}
                     read = {(e) => showUpdatePage(book, e, id)}
                     page = {session ? book.users.find(x => x.id === session.user.id)?.page : ""}
+                    signedIn = {session ? true : false}
                     >
                     </BookCard>
                 )}   
-            <AddCard onClick = {showAddBook}></AddCard>
+
+            
+            {session && <AddCard onClick = {showAddBook}></AddCard>}
             </div>
         </div>
         :
