@@ -72,6 +72,7 @@ const Validate = () => {
             <div className="flex flex-col py-4 text-center">
                 <ReactInputVerificationCode
                     value={input}
+                    autoFocus={true}
                     placeholder={null}
                     length={6}
                     onChange={(newValue) => {
