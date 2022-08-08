@@ -3,9 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState} from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import CryptoJS from "crypto-js"
-// import VerificationInput from "react-verification-input";
 import ReactInputVerificationCode from 'react-input-verification-code';
-import connectDB from "../../api/auth/lib/connect"
 
 const Validate = () => {
     const router = useRouter()
