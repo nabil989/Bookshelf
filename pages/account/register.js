@@ -1,45 +1,82 @@
 import axios from "axios"
 import { useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from 'next/router'
+import CryptoJS from "crypto-js"
+// var CryptoJS = require('crypto-js')
 const Register = () => {
+    const router = useRouter()
     const [email, changeEmail] = useState('')
     const [password, changePassword] = useState('')
     const [passwordAgain, changePasswordAgain] = useState('')
     const [message, changeMessage] = useState('')
+    // method to validate if an email is in the correct format or not.
     const validateEmail = (email) => {
         if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
             return true
         }
         return false
     }
+    // method that generates an n digit random number. Used for account verification.
+    const generate = (n) => {
+        var add = 1, max = 12 - add;   // 12 is the min safe number Math.random() can generate without it starting to pad the end with zeros.   
+        if (n > max) {
+            return generate(max) + generate(n - max);
+        }
+        max = Math.pow(10, n+add);
+        var min = max/10; // Math.pow(10, n) basically
+        var number = Math.floor( Math.random() * (max - min + 1) ) + min;
+        return ("" + number).substring(add); 
+    }
+    // method that replaces special characters in verification code. Used for creation of dynamic route.
+    // Reasoning: the encryption contains '/' characters which is not allowed when making dynamic routes.
+    const replaceSpecialCharacters = (encryption) => {
+        return encryption.toString().replace('+','xMl3Jk').replace('/','Por21Ld').replace('=','Ml32');
+    }
+    // enum for API messages for readability
+    const messages = {
+        InvalidParams: 'All fields have not been filled out.',
+        UserExists: 'A user with the associated email already exists.',
+        Success: 'Account has successfully been created!'
+    }
     const registerUser = async (e) => {
         e.preventDefault()
         if(password !== passwordAgain) {
             changePassword('')
             changePasswordAgain('')
-            console.log('passwords do not match')
             changeMessage('Passwords do not match. Please try again.')
         } else if(!validateEmail(email)){
             changeEmail('')
-            console.log('invalid email')
+            changePassword('')
+            changePasswordAgain('')
             changeMessage('Invalid email detected. Please try again.')
         } else {
-            changeMessage('A verification email has been sent to your account.')
+            let code = generate(6)
             axios.post('/api/users/register', {
                 email: email,
-                password: password
+                password: password,
+                code: code
             }).then(function (response) {
-                console.log(response);
+                const msg = response.data.msg
+                changeEmail('')
+                changePassword('')
+                changePasswordAgain('')
+                if(msg !== messages.UserExists){
+                    let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY);
+                    let cipherInfo = CryptoJS.AES.encrypt(email, '' + process.env.ENCRYPTION_KEY)
+                    router.push({
+                        asPath: `/account/verify/${replaceSpecialCharacters(cipherCode)}`,
+                        pathname:'/account/verify/validate',
+                        query: { code: replaceSpecialCharacters(cipherCode), info: replaceSpecialCharacters(cipherInfo) },
+                    })
+                }
+                changeMessage(messages.UserExists)
             })
             .catch(function (error) {
                 console.log(error);
             });
-            changeEmail('')
-            changePassword('')
-            changePasswordAgain('')
         }
     }
-    
     return (
         <div className='flex flex-col space-y-6 items-center pt-32 text-gray-800'>
             <h1 className='text-5xl font-bold'>Bookshelf</h1>
@@ -71,5 +108,4 @@ const Register = () => {
         </div>
     );
 }
- 
 export default Register;

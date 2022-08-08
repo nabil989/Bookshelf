@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     valid: {
         type: Boolean,
         default: false
-    }
+    },
 })
 module.exports = mongoose.models.User || mongoose.model('User', userSchema)
 // module.exports =
