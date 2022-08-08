@@ -71,7 +71,7 @@ const Validate = () => {
                 }
             </div>
             {loading ? 
-            <div className="flex flex-col py-4">
+            <div className="flex flex-col py-4 text-center">
                 <ReactInputVerificationCode
                     value={input}
                     placeholder={null}
