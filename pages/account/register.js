@@ -57,13 +57,16 @@ const Register = () => {
                 password: password,
                 code: code
             }).then(function (response) {
-                const msg = response.data.msg
+                // console.log(response)
+                let msg = response.data.msg
+                let id = null
                 changeEmail('')
                 changePassword('')
                 changePasswordAgain('')
                 if(msg !== messages.UserExists){
+                    id = response.data.id
                     let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY);
-                    let cipherInfo = CryptoJS.AES.encrypt(email, '' + process.env.ENCRYPTION_KEY)
+                    let cipherInfo = CryptoJS.AES.encrypt(id, '' + process.env.ENCRYPTION_KEY)
                     router.push({
                         asPath: `/account/verify/${replaceSpecialCharacters(cipherCode)}`,
                         pathname:'/account/verify/validate',

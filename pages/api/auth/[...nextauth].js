@@ -21,19 +21,21 @@ export default NextAuth({
                 const email = credentials.username
                 const password = credentials.password
                 const user = await Users.findOne({ email:email })
-                if(!user || !password || !user.valid){
+                // || !user.valid
+                if(!user || !password){
                     return null
                 }
                 const isMatch = await bcrypt.compare(password, user.password)
                 if(!isMatch) {
                     return null
                 }
-                console.log(user);
+                // console.log(user);
                 const details = {
                     name: user.name,
                     email: user.email,
                     id: user._id,
-                    booklist: user.bookLists
+                    booklist: user.bookLists,
+                    valid: user.valid
                 }
                 return details
             }   
@@ -42,7 +44,7 @@ export default NextAuth({
         // ...add more providers here
     ],
     session: {
-        jwt:true,
+        jwt: true,
         strategy: 'jwt'
 
     },
@@ -55,9 +57,13 @@ export default NextAuth({
     }, 
     callbacks: {
         session: async ({ session, token }) => {
-            
             if (session?.user) {
                 session.user.id = token.uid;
+                session.user.valid = token.valid;
+                // console.log(token)
+                // console.log(token)
+                // console.log(token)
+                // console.log(session.user)
                 // session.user.image = token.picture
             }
             return session;
@@ -65,6 +71,7 @@ export default NextAuth({
         jwt: async ({ user, token }) => {
             if (user) {
                 token.uid = user.id;
+                token.valid = user.valid;
             // token.picture = user.image
             }
             return token;
@@ -74,7 +81,7 @@ export default NextAuth({
         if (url.startsWith("/")) return `${baseUrl}`
         // Allows callback URLs on the same origin
         else if (new URL(url).origin === baseUrl) return url
-        return baseUrl
+            return baseUrl
         },
     },
 

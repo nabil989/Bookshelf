@@ -56,6 +56,9 @@ const Validate = () => {
     }    
     return (
         <div className='flex flex-col items-center p-12 text-3xl '>
+            <div>
+                {code}
+            </div>
             <div className='border-2 border-gray-200 rounded-md md:w-1/2 w-full'>
                 {loading ? 
                     <div className='text-center'>

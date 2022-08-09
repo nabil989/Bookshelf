@@ -5,7 +5,7 @@ const sgMail = require('@sendgrid/mail');
 
 export default async function handler (req, res) {
     await dbConnect(process.env.MONGODB_URI)
-    const { email, password, code} = req.body
+    const { email, password, code } = req.body
     const check = await Users.findOne({ email:email })
     if(check && check.valid) {
         console.log('a user w/ that email already exists')
@@ -18,9 +18,12 @@ export default async function handler (req, res) {
     }
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
-    const user = await Users.create({email:email, password:passwordHash, code:code})
+    const user = await Users.create({email:email, password:passwordHash})
     sendMail(user, code)
-    return res.status(200).json({msg:"Account has successfully been created!"})
+    return res.status(200).json({
+      msg: "Account has successfully been created!",
+      id: user._id
+    })
 }
 const sendMail = (user, code) => {
     const email = user.email

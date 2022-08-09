@@ -6,7 +6,7 @@ export default async function handler (req, res) {
     if(code !== input){
         return res.status(200).json({msg: 'Incorrect code. Please try again.'})
     }
-    const user = await Users.findOne({ email:info })
+    const user = await Users.findOne({ _id:info })
     if(!user){
         return res.status(200).json({msg: 'An account with the associated email does not exist.'})
     }
