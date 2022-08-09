@@ -5,6 +5,9 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import CryptoJS from "crypto-js"
 import ReactInputVerificationCode from 'react-input-verification-code';
 
+// const sgMail = require('@sendgrid/mail');
+// 
+
 const Validate = () => {
     const router = useRouter()
     const [loading, setLoading] = useState(true);
@@ -13,30 +16,67 @@ const Validate = () => {
         return encryption.toString().replace('xMl3Jk', '+' ).replace('Por21Ld', '/').replace('Ml32', '=');
     } 
     const [code, changeCode] = useState('')
-    const [info, changeInfo] = useState('')
+    const [id, changeId] = useState('')
     const [input, setInput] = useState('')
     const [error, setError] = useState(null);
+    const [send, changeSend] = useState(false)
+    const [email, changeEmail] = useState('')
     const messages = {
         Valid: 'Your account has been successfully validated.',
         BadUser: 'An account with the associated email does not exist.',
         BadCode: 'Incorrect code. Please try again.'
+    }
+    // method that generates an n digit random number. Used for account verification.
+    const generate = (n) => {
+        var add = 1, max = 12 - add;   // 12 is the min safe number Math.random() can generate without it starting to pad the end with zeros.   
+        if (n > max) {
+            return generate(max) + generate(n - max);
+        }
+        max = Math.pow(10, n+add);
+        var min = max/10; // Math.pow(10, n) basically
+        var number = Math.floor( Math.random() * (max - min + 1) ) + min;
+        return ("" + number).substring(add); 
+    }
+    const getNewCode = () => {
+        let newCode = generate(6)
+        changeCode(newCode)
+        axios.post('/api/users/sendmail', {
+            email: email,
+            code: newCode,
+        }).then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
     useEffect(()=>{
         if(!router.isReady)
             return
         const codeBytes = CryptoJS.AES.decrypt(bringBackEncryption(router.query.code), '' + process.env.ENCRYPTION_KEY);
         const originalCode = codeBytes.toString(CryptoJS.enc.Utf8).toString();
-        const infoBytes = CryptoJS.AES.decrypt(bringBackEncryption(router.query.info), '' + process.env.ENCRYPTION_KEY);
-        const originalInfo = infoBytes.toString(CryptoJS.enc.Utf8);
+        const idBytes = CryptoJS.AES.decrypt(bringBackEncryption(router.query.id), '' + process.env.ENCRYPTION_KEY);
+        const originalId = idBytes.toString(CryptoJS.enc.Utf8);
+        const emailBytes = CryptoJS.AES.decrypt(bringBackEncryption(router.query.find), '' + process.env.ENCRYPTION_KEY);
+        const originalEmail = emailBytes.toString(CryptoJS.enc.Utf8);
         changeCode(originalCode)
-        changeInfo(originalInfo)
+        changeId(originalId)
+        changeEmail(originalEmail)
+        // if(send){
+        //     // sendMail(email)
+        //     // console.log(send + "")
+        //     // axios
+        //     getNewCode()
+        //     changeSend(false)
+        // }
     }, [router.isReady]);
     const validateUser = () => {
         if(input.length === 6){
+            // setMail(true)
             axios.post('/api/users/validate', {
                 code: code,
                 input: input,
-                info: info
+                id: id
             }).then(function (response) {
                 if(messages.Valid === response.data.msg){
                     setLoading(false);
@@ -91,6 +131,8 @@ const Validate = () => {
                 <h1>
                     {error}
                 </h1>
+                <button onClick={() => {getNewCode()}} className=' text-blue-600 underline'>Have an account?</button>
+
             </div>
              : ""}
             

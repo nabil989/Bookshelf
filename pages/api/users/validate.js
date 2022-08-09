@@ -2,11 +2,11 @@ import dbConnect from '../auth/lib/connect'
 import Users from '../../../models/userModel'
 export default async function handler (req, res) {
     await dbConnect(process.env.MONGODB_URI)
-    const { code, input, info } = req.body
+    const { code, input, id } = req.body
     if(code !== input){
         return res.status(200).json({msg: 'Incorrect code. Please try again.'})
     }
-    const user = await Users.findOne({ _id:info })
+    const user = await Users.findOne({ _id:id })
     if(!user){
         return res.status(200).json({msg: 'An account with the associated email does not exist.'})
     }

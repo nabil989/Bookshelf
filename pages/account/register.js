@@ -55,7 +55,7 @@ const Register = () => {
             axios.post('/api/users/register', {
                 email: email,
                 password: password,
-                code: code
+                // code: code
             }).then(function (response) {
                 // console.log(response)
                 let msg = response.data.msg
@@ -65,12 +65,40 @@ const Register = () => {
                 changePasswordAgain('')
                 if(msg !== messages.UserExists){
                     id = response.data.id
-                    let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY);
-                    let cipherInfo = CryptoJS.AES.encrypt(id, '' + process.env.ENCRYPTION_KEY)
+                    let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY)
+                    let cipherId = CryptoJS.AES.encrypt(id, '' + process.env.ENCRYPTION_KEY)
+                    let cipherEmail = CryptoJS.AES.encrypt(email, '' + process.env.ENCRYPTION_KEY)
+                    // axios.post('/api/users/sendmail', {
+                    //     email: email,
+                    //     code: code,
+                    //     // code: code
+                    // }).then(function (response) {
+                    //     // console.log(response)
+                    //     // let msg = response.data.msg
+                    //     // let id = null
+                    //     // changeEmail('')
+                    //     // changePassword('')
+                    //     // changePasswordAgain('')
+                    //     // if(msg !== messages.UserExists){
+                    //     //     id = response.data.id
+                    //     //     let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY)
+                    //     //     let cipherId = CryptoJS.AES.encrypt(id, '' + process.env.ENCRYPTION_KEY)
+                    //     //     let cipherEmail = CryptoJS.AES.encrypt(email, '' + process.env.ENCRYPTION_KEY)
+                    //     //     router.push({
+                    //     //         asPath: `/account/verify/${replaceSpecialCharacters(cipherCode)}`,
+                    //     //         pathname:'/account/verify/validate',
+                    //     //         query: { code: replaceSpecialCharacters(cipherCode), id: replaceSpecialCharacters(cipherId), find: replaceSpecialCharacters(cipherEmail) },
+                    //     //     })
+                    //     // }
+                    //     // changeMessage(messages.UserExists)
+                    // })
+                    // .catch(function (error) {
+                    //     console.log(error);
+                    // });
                     router.push({
                         asPath: `/account/verify/${replaceSpecialCharacters(cipherCode)}`,
                         pathname:'/account/verify/validate',
-                        query: { code: replaceSpecialCharacters(cipherCode), info: replaceSpecialCharacters(cipherInfo) },
+                        query: { code: replaceSpecialCharacters(cipherCode), id: replaceSpecialCharacters(cipherId), find: replaceSpecialCharacters(cipherEmail) },
                     })
                 }
                 changeMessage(messages.UserExists)
