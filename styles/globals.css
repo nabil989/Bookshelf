@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+:root{
+  --ReactInputVerificationCode-itemWidth:2rem;
+}
 html,
 body {
   padding: 0;

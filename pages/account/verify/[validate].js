@@ -55,21 +55,22 @@ const Validate = () => {
         }
     }    
     return (
-        <div className='flex flex-col items-center p-12 text-3xl '>
-            <div className='border-2 border-gray-200 rounded-md md:w-1/2 w-full'>
-                {loading ? 
-                    <div className='text-center'>
-                        Please enter the verification code sent to your email.
-                    </div>
-                    :
-                    <div className="flex flex-row">
-                        <div className="bg-green-200 w-1/12 text-center py-4 mr-2 rounded-l">✓ </div>
-                        <div className="py-4">Verification Successful! <button onClick={() => signIn()} className='text-blue-400 underline'>Click here to sign in</button></div>
-                    </div>
-                }
-            </div>
+        <div className='flex flex-col items-center p-12'>
+            {!loading &&
+                <div className='border-2 border-gray-200 rounded-md md:w-1/2 w-full'>
+                        <div className="flex flex-row">
+                            <div className="bg-green-200 w-1/12 text-center py-4 mr-2 rounded-l">✓ </div>
+                            <div className="py-4">Verification Successful! <button onClick={() => signIn()} className='text-blue-400 underline'>Click here to sign in</button></div>
+                        </div>
+                    
+                </div>
+            }
+
             {loading ? 
-            <div className="flex flex-col py-4 text-center">
+            <div className="flex flex-col py-4 border-2 border-gray-200 rounded-md md:w-1/2 items-center">
+                <div className="text-lg mb-6">
+                    Please enter the verification code sent to your email.
+                </div>
                 <ReactInputVerificationCode
                     value={input}
                     placeholder={null}
@@ -81,8 +82,8 @@ const Validate = () => {
                         }
                     }}
                 />
-                <button onClick={validateUser}>
-                    Send
+                <button onClick={validateUser} className = 'text-lg bg-blue-300 rounded px-4 mt-6'>
+                    Verify
                 </button>
                 <h1>
                     {error}

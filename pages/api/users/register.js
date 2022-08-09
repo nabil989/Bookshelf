@@ -29,7 +29,7 @@ const sendMail = (user, code) => {
     const msg = {
         to: email,
         from: 'verifiedbookshelf@gmail.com', // Use the email address or domain you verified above
-        subject: 'Verify your Account',
+        subject: 'Verify Your Bookshelf Account',
         text: `Your account verification code is ${code}. If this wasn't you, please shoot us an email. Thanks!`
         // text: `Press here or visit http://localhost:3000/account/verify/${id} to verify your account. If this wasn't you please do not click the link and shoot us an email. Thanks!`,
         // html: `Press <a href="http://localhost:3000/account/verify/${id}">here</a> or visit http://localhost:3000/account/verify/${id} to verify your account.

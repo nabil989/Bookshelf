@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from 'react'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { getSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/router'
 import CryptoJS from "crypto-js"
 // var CryptoJS = require('crypto-js')
@@ -108,4 +108,5 @@ const Register = () => {
         </div>
     );
 }
+
 export default Register;

@@ -22,7 +22,7 @@ export default async function handler (req, res) {
         return res.status(400).json({msg:"No booklist with join code"})
     }
     if(list.users.includes(session.user.id)){
-        return res.status(400).json({msg:"Already in List"})
+        return res.status(200).json({msg:"redirect", id:list._id})
     }
     list.users.push(session.user.id)
     await list.save();
@@ -32,5 +32,5 @@ export default async function handler (req, res) {
     user.bookLists.push(list._id);
     await user.save();
 
-    return res.status(200).json({msg:"joined a booklist"})
+    return res.status(200).json({msg:"joined a booklist", id:list._id})
 }
