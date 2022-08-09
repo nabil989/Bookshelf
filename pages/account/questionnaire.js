@@ -15,6 +15,10 @@ const Questionnaire = () => {
     //     const file = e.target.files[0]
     //     console.log(file)
     // }
+    const reloadSession = () => {
+        const event = new Event("visibilitychange");
+        document.dispatchEvent(event);
+    };
     const updateUser = (e) => {
         e.preventDefault()
         let fin = new Buffer(img, 'base64')
@@ -28,6 +32,7 @@ const Questionnaire = () => {
         .catch(function (error) {
             console.log(error);
         });
+        reloadSession()
     }
 
     const blobToBase64 = blob => {
@@ -78,7 +83,7 @@ const Questionnaire = () => {
                     <input type="file" accept="image/*" onChange={handleImageUpload.bind(this)}></input>
                 </label>
                 {img.length != 0 && <Image src={img} layout="fixed" width={100} height={100} className='rounded-full'/>}
-                <button onClick={updateUser} className='text-red' type="submit" >
+                <button onClick={() => {updateUser}} className='text-red' type="submit" >
                     <p className='text-red'>
                         Finish account registration
                     </p>
