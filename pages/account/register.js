@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useState } from 'react'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { getSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/router'
 import CryptoJS from "crypto-js"
 // var CryptoJS = require('crypto-js')
@@ -65,36 +65,19 @@ const Register = () => {
                 changePasswordAgain('')
                 if(msg !== messages.UserExists){
                     id = response.data.id
+                    console.log(code)
                     let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY)
                     let cipherId = CryptoJS.AES.encrypt(id, '' + process.env.ENCRYPTION_KEY)
                     let cipherEmail = CryptoJS.AES.encrypt(email, '' + process.env.ENCRYPTION_KEY)
-                    // axios.post('/api/users/sendmail', {
-                    //     email: email,
-                    //     code: code,
-                    //     // code: code
-                    // }).then(function (response) {
-                    //     // console.log(response)
-                    //     // let msg = response.data.msg
-                    //     // let id = null
-                    //     // changeEmail('')
-                    //     // changePassword('')
-                    //     // changePasswordAgain('')
-                    //     // if(msg !== messages.UserExists){
-                    //     //     id = response.data.id
-                    //     //     let cipherCode = CryptoJS.AES.encrypt(code, '' + process.env.ENCRYPTION_KEY)
-                    //     //     let cipherId = CryptoJS.AES.encrypt(id, '' + process.env.ENCRYPTION_KEY)
-                    //     //     let cipherEmail = CryptoJS.AES.encrypt(email, '' + process.env.ENCRYPTION_KEY)
-                    //     //     router.push({
-                    //     //         asPath: `/account/verify/${replaceSpecialCharacters(cipherCode)}`,
-                    //     //         pathname:'/account/verify/validate',
-                    //     //         query: { code: replaceSpecialCharacters(cipherCode), id: replaceSpecialCharacters(cipherId), find: replaceSpecialCharacters(cipherEmail) },
-                    //     //     })
-                    //     // }
-                    //     // changeMessage(messages.UserExists)
-                    // })
-                    // .catch(function (error) {
-                    //     console.log(error);
-                    // });
+                    axios.post('/api/users/sendmail', {
+                        email: email,
+                        code: code,
+                    }).then(function (response) {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
                     router.push({
                         asPath: `/account/verify/${replaceSpecialCharacters(cipherCode)}`,
                         pathname:'/account/verify/validate',
@@ -139,4 +122,5 @@ const Register = () => {
         </div>
     );
 }
+
 export default Register;

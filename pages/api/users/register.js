@@ -18,19 +18,8 @@ export default async function handler (req, res) {
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
     const user = await Users.create({email:email, password:passwordHash})
-    // sendMail(user)
     return res.status(200).json({
       msg: "Account has successfully been created!",
       id: user._id
     })
 }
-
-
-// const verify = (id) => {
-//   if(user){
-//     user.valid = true
-//     await user.save
-//   } else {
-//     res.json('user does not exist')
-//   }
-// }

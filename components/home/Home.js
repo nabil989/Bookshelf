@@ -52,6 +52,9 @@ export default function BookList() {
             <div className='text-3xl font-bold text-gray-700 pt-8'>
                 Your Booklists
             </div>
+            {Object.keys(booklists).length === 0 &&
+                <div className='bg-fuchsia-200 p-2 rounded-md'> To get started, join or create a booklist! </div>
+            }
             <div className='flex flex-row flex-wrap' >
                 {booklists && Object.keys(booklists).map((i) => {
                     return <BookListCard text = {booklists[i].name} key = {i} list ={booklists[i]}></BookListCard>
