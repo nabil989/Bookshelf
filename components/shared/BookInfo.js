@@ -5,7 +5,7 @@ export default function BookInfo({toggle, book, read, users, open, id}){
     return (
         <div className="flex flex-row">
             {book.imageURL !== "none" ? 
-            <Image  src={book.imageURL} className="flex-shrink-0 h-80 w-56 object-cover rounded-sm shadow-md"/>
+            <img src={book.imageURL} className="flex-shrink-0 h-80 w-56 object-cover rounded-sm shadow-md"/>
            
             :
             <div className="flex-shrink-0 h-80 w-56 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 rounded-sm shadow-md">

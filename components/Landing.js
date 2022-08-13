@@ -1,7 +1,7 @@
 import {signIn} from "next-auth/react"
 import {useEffect, useState, useCallback} from "react"
 import Link from 'next/link'
-import Image from "next/image"
+
 
 export default function Profile() {
   const [load, setLoad] = useState(false);

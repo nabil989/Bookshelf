@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image"
 export default function BookListCard({text, list}) {
     return(
         <Link href = {{pathname: 'booklist/[id]', query : {id:list._id}}}>
@@ -8,18 +7,18 @@ export default function BookListCard({text, list}) {
                 <div className="w-1/3 h-full flex flex-col">
                     <div className="w-full flex flex-row h-1/2">
                         <div className="w-1/2 h-full bg-blue-50">
-                            {list.books[0] && <Image src={list.books[0].imageURL} className = 'object-cover w-full h-full'/>}
+                            {list.books[0] && <img src={list.books[0].imageURL} className = 'object-cover w-full h-full'/>}
                         </div>
                         <div className="w-1/2 h-full bg-fuchsia-100"> 
-                            {list.books[1] && <Image src={list.books[1].imageURL} className = 'object-cover w-full h-full'/>}
+                            {list.books[1] && <img src={list.books[1].imageURL} className = 'object-cover w-full h-full'/>}
                         </div>
                     </div>
                     <div className="w-full flex flex-row h-1/2">
                         <div className="w-1/2 h-full bg-fuchsia-50">
-                            {list.books[2] && <Image src={list.books[2].imageURL} className = 'object-cover w-full h-full'/>}
+                            {list.books[2] && <img src={list.books[2].imageURL} className = 'object-cover w-full h-full'/>}
                         </div>
                         <div className="w-1/2 h-full bg-blue-50">
-                            {list.books[3] && <Image src={list.books[3].imageURL} className = 'object-cover w-full h-full'/>}
+                            {list.books[3] && <img src={list.books[3].imageURL} className = 'object-cover w-full h-full'/>}
                         </div>
                     </div>
                 </div>
