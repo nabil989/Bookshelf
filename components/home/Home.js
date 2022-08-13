@@ -41,7 +41,7 @@ export default function BookList() {
         toggle();
     }
     
-    const popupOptions = [<CreateBookList toggle={toggle} update = {getBookLists}/>]
+    const popupOptions = [<CreateBookList key = {0} toggle={toggle} update = {getBookLists}/>]
     
     return (
         <div className='px-28 pt-10 flex flex-col space-y-8'>

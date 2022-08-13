@@ -99,9 +99,9 @@ export default function BookList() {
     
     const popupOptions = 
     [
-        <BookInfo toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users} open = {open} id={session ? session.user.id : ""}/>, 
-        <AddBook toggle={toggle} listId = {listId} update = {update}/>,
-        <UpdatePage toggle={toggle} book = {currentBook} id = {listId} update = {update} timer={timer} toggleInterval = {toggleInterval}/>
+        <BookInfo key= {0} toggle={toggle} book = {currentBook} read = {() => showUpdatePageFromPopup(currentBook)} users = {users} open = {open} id={session ? session.user.id : ""}/>, 
+        <AddBook key= {1} toggle={toggle} listId = {listId} update = {update}/>,
+        <UpdatePage key= {2} toggle={toggle} book = {currentBook} id = {listId} update = {update} timer={timer} toggleInterval = {toggleInterval}/>
     ]
 
     
@@ -125,7 +125,7 @@ export default function BookList() {
             </div>
             <div className='flex flex-row flex-wrap' >
                 {bookListInfo.books && bookListInfo.books.map((book, id) => 
-                    <BookCard book={book} key ={id} 
+                    <BookCard book={book} key = {id} 
                     onClick = {() => showBookinfo(book, id)}
                     read = {(e) => showUpdatePage(book, e, id)}
                     page = {session ? book.users.find(x => x.id === session.user.id)?.page : ""}

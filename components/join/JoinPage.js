@@ -4,10 +4,10 @@ import react, {useState, useEffect} from 'react'
 import axios, { Axios } from 'axios'
 import Link from "next/link"
 import JoinMsg from "./JoinMsg"
-import { useSession} from "next-auth/react"
+import {useSession} from "next-auth/react"
 import NotFound from "../shared/NotFound"
 
-export default function joinPage(){
+export default function JoinPage(){
     const { data: session } = useSession()
     const router = useRouter()
     const [loading,setLoading] = useState(true);
@@ -20,7 +20,6 @@ export default function joinPage(){
         console.log(code);
         setCode(code);
         axios.post('../api/lists/getInfoFromCode', {join:code}).then(res => {
-        
             console.log(res);
             setBookListInfo(res.data.data);
             if(res.data.msg === "Already in List"){

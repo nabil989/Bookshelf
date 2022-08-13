@@ -13,7 +13,7 @@ export default function BookCard({book, onClick, read, page, signedIn}) {
                 <div className='text-gray-600'>
                     {book.author}
                 </div>
-                {signedIn && <a href={book.link} target="_blank">
+                {signedIn && <a href={book.link} target="_blank" rel="noreferrer">
                     <button className=" bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white px-4"   
                      onClick={read}>
                         {page ? 

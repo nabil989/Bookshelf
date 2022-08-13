@@ -20,7 +20,7 @@ export default function BookInfo({toggle, book, read, users, open, id}){
                 <div className="py-4">
                     {book.description}
                 </div>
-                {id != "" && <a href={book.link} target="_blank">
+                {id != "" && <a href={book.link} target="_blank" rel="noreferrer">
                     <button className="bg-indigo-200 rounded-sm text-gray-900 w-auto float-left hover:shadow-md hover:bg-indigo-600  transition-all duration-500 hover:text-white px-2"
                     onClick={read}>
                         {book.users && book.users.find(x => x.id === id)?.page ? 
