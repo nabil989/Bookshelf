@@ -42,7 +42,7 @@ export default function Profile() {
             </Link>
         </div>
         <div className={`bg-gray-800 rounded-xl mt-10 p-3 shadow-2xl md:mx-40 mx-4 ${load? 'tranlate-y-0' : 'translate-y-20'} transition-all duration-1000`}>
-            <Image src={'/bookshelf.png'} className = ' rounded-md'/>
+            <img src={'/bookshelf.png'} className = ' rounded-md'/>
         </div>
         <div className="w-full flex md:flex-row flex-col mt-28 h-screen">
           <div className="w-full md:w-1/2 h-1/2 flex flex-col items-center justify-center">
