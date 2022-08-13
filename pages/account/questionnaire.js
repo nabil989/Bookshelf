@@ -82,7 +82,7 @@ const Questionnaire = () => {
                     Picture
                     <input type="file" accept="image/*" onChange={handleImageUpload.bind(this)}></input>
                 </label>
-                {img.length != 0 && <Image src={img} layout="fixed" width={100} height={100} className='rounded-full'/>}
+                {img.length != 0 && <Image src={img} alt="" layout="fixed" width={100} height={100} className='rounded-full'/>}
                 <button onClick={() => {updateUser}} className='text-red' type="submit" >
                     <p className='text-red'>
                         Finish account registration

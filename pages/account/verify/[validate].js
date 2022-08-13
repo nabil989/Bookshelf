@@ -62,7 +62,7 @@ const Validate = () => {
         changeCode(originalCode)
         changeId(originalId)
         changeEmail(originalEmail)
-    }, [router.isReady]);
+    }, [router.isReady, router.query.code, router.query.id, router.query.find]);
     const validateUser = () => {
         if(input.length === 6){
             axios.post('/api/users/validate', {
