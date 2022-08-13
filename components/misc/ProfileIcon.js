@@ -32,7 +32,7 @@ const ProfileIcon = () => {
    
     useEffect(() => {
         getIcon();
-    }, [])
+    }, [getIcon])
 
     // console.log(imgSrc)
     
@@ -49,7 +49,7 @@ const ProfileIcon = () => {
     return (
         // {src.length != 0 && <Image src={img} layout="fixed" width={100} height={100} className='rounded-full'/>}
         <div>
-            <Image src={src} height='50' width='50' className='rounded-full ml-4'/>
+            <Image alt='' src={src} height='50' width='50' className='rounded-full ml-4'/>
         </div>
     )
 }

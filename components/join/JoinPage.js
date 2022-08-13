@@ -38,7 +38,7 @@ export default function JoinPage(){
         }    
         )
         
-    },[router.isReady])
+    },[router.isReady, router.query])
 
     return (
         loading ? <div></div> :

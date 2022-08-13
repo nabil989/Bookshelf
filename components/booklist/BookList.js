@@ -56,7 +56,7 @@ export default function BookList() {
             setUsers(res.data.users.ret);
             setLoading(false);
         }).catch(err => {console.log(err); setLoading(false)})
-    },[router.isReady])
+    },[router.isReady, router.query])
     
     const [open, toggleOpen] = useState(false);
     const [popup, changePopup] = useState(0);

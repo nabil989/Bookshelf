@@ -22,7 +22,8 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-file-base64": "^1.0.3",
-    "react-input-verification-code": "^1.0.2"
+    "react-input-verification-code": "^1.0.2",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",

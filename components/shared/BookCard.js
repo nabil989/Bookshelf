@@ -1,7 +1,7 @@
 export default function BookCard({book, onClick, read, page, signedIn}) {
     return(
         <div className="w-full md:w-1/2 lg:w-1/4 flex flex-row hover:shadow-md hover:scale-105 transition-all duration-500 hover:cursor-pointer mb-10" onClick={onClick}>
-            {book.imageURL !== "none" ? <img src={book.imageURL} className = "h-48 w-32 object-cover rounded-md shadow-md"/>
+            {book.imageURL !== "none" ? <Image src={book.imageURL} className = "h-48 w-32 object-cover rounded-md shadow-md"/>
             : 
             <div className = " bg-gradient-to-b from-indigo-300 via-purple-300 to-pink-300 h-48 w-32 object-cover rounded-md shadow-md"/>
             }

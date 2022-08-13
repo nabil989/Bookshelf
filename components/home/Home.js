@@ -5,7 +5,7 @@ import AddCard from '../shared/AddCard'
 import CreateBookList from '../shared/CreateBookList'
 import { useSession} from "next-auth/react"
 import axios from 'axios'
-import BookListCard from './Booklistcard'
+import BookListCard from './BookListCard'
 export default function BookList() {
     const { data: session } = useSession()
     const [open, toggleOpen] = useState(false);

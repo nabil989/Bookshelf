@@ -1,5 +1,6 @@
 import react, {useState} from 'react'
 import axios, { Axios } from 'axios'
+import Image from "next/image"
 import { useSession } from "next-auth/react"
 export default function AddBook({toggle, listId, update}) {
     const { data: session } = useSession()
@@ -67,7 +68,7 @@ export default function AddBook({toggle, listId, update}) {
                 : 
                     <div className='flex flex-row space-x-4'>
                         {book.volumeInfo.imageLinks ? 
-                        <img src={book.volumeInfo.imageLinks.thumbnail} className = "w-48 h-72 object-contain rounded-md shadow-md"/> 
+                        <Image src={book.volumeInfo.imageLinks.thumbnail} className = "w-48 h-72 object-contain rounded-md shadow-md"/> 
                         :
                         <div className="flex-shrink-0 h-72 w-48 bg-gray-300 rounded-sm shadow-md flex flex-col items-center justify-center">
                             <div className="text-gray-500">No Image</div>
