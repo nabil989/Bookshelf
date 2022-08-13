@@ -1,3 +1,4 @@
+import Image from 'next/image'
 export default function BookCard({book, onClick, read, page, signedIn}) {
     return(
         <div className="w-full md:w-1/2 lg:w-1/4 flex flex-row hover:shadow-md hover:scale-105 transition-all duration-500 hover:cursor-pointer mb-10" onClick={onClick}>

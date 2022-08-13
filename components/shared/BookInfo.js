@@ -1,4 +1,5 @@
 import ReaderStatus from "../booklist/ReaderStatus"
+import Image from 'next/image'
 
 export default function BookInfo({toggle, book, read, users, open, id}){
     return (

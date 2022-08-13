@@ -1,3 +1,4 @@
+import Image from 'next/image'
 export default function UserIconSM ({name, image }) {
     let img = image ? 'data:image/jpeg;base64,' + Buffer.from(image).toString('base64').slice(20) : "";
     return image ? 
