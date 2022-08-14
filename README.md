@@ -1,7 +1,8 @@
 
 # Bookshelf
-
+Note: The project is currently early in development and has a lot of bugs and missing features.
 Link: https://bookshelf-kappa-two.vercel.app/
+
 
 Your online bookclub: Create, share, and colaborate on booklists.
 
