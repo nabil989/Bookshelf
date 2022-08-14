@@ -1,6 +1,6 @@
 
 # Bookshelf
-Note: The project is currently early in development and has a lot of bugs and missing features.
+Note: The project is currently early in development and has a lot of bugs and missing features.<br> 
 Link: https://bookshelf-kappa-two.vercel.app/
 
 
