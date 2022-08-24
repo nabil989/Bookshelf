@@ -33,7 +33,7 @@ export default function Profile() {
             Bookshelf
         </div>
         <div className="text-2xl text-gray-500 mt-6">
-            Your virual Bookclub
+            Your Virtual Bookclub
         </div>
         <div className="flex flex-row mt-10">
             <button onClick={() => signIn()} className='p-2 bg-fuchsia-200 rounded-md mr-2'>Sign in</button>
