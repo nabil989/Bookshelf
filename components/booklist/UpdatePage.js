@@ -23,7 +23,7 @@ export default function UpdatePage ({toggle, book, id, update, timer, toggleInte
                 Nice Reading!
             </div>
             <div>
-                You have been reading for {Math.floor(timer/60)} minutes and {timer%60} seconds and read from page {book.users[book.index].page} page
+                You have been reading for {Math.floor(timer/60)} minutes and {timer%60} seconds and read from page {book.users[book.index]?.page} to page
                 <input type='number' id = 'page' className="p-2 rounded-md border-gray-200 border-2 ml-2"></input>
             </div>
             
